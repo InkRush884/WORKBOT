@@ -1,37 +1,17 @@
-const chat = document.getElementById("chat");
-const input = document.getElementById("user-input");
-const sendBtn = document.getElementById("send");
+function getBotResponse(input) {
+  const msg = input.toLowerCase();
 
-function addMessage(text, className) {
-  const message = document.createElement("div");
-  message.className = `message ${className}`;
-  message.textContent = text;
-  chat.appendChild(message);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function getBotResponse(inputText) {
-  const msg = inputText.toLowerCase();
   if (msg.includes("hello") || msg.includes("hi")) {
-    return "Hi! How can I help you?";
+    return "Hello! How can I help you today?";
+  } else if (msg.includes("how are you")) {
+    return "I'm just code, but I'm doing great!";
+  } else if (msg.includes("your name")) {
+    return "I'm Chatbot, your simple AI assistant.";
   } else if (msg.includes("bye")) {
-    return "Goodbye!";
+    return "Goodbye! Have a great day!";
+  } else if (msg.includes("what can you do")) {
+    return "I can answer basic questions. You can ask me about greetings, my name, or how I'm doing!";
   } else {
-    return "Sorry, I didn’t understand that.";
+    return "Sorry, I didn’t understand that. Try saying 'hello' or 'what can you do'.";
   }
 }
-
-sendBtn.addEventListener("click", () => {
-  const userText = input.value.trim();
-  if (userText === "") return;
-  addMessage("You: " + userText, "user");
-  const botReply = getBotResponse(userText);
-  setTimeout(() => addMessage("Bot: " + botReply, "bot"), 500);
-  input.value = "";
-});
-
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    sendBtn.click();
-  }
-});
